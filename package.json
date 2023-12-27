@@ -1,4 +1,5 @@
 {
+  "homepage": "http//:dennismnyaga.github.io/barakagaspoint",
   "name": "vite-template-redux",
   "private": true,
   "version": "0.0.0",
@@ -6,6 +7,8 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
@@ -42,6 +45,7 @@
     "eslint": "^8.0.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-prettier": "^4.2.1",
+    "gh-pages": "^6.1.1",
     "jsdom": "^21.1.0",
     "postcss": "^8.4.27",
     "prettier": "^2.7.1",
