@@ -1,12 +1,13 @@
 /* eslint-disable prettier/prettier */
 import Badge from "@mui/material/Badge"
 import MailIcon from "@mui/icons-material/Mail"
-import logo from "../images/kateryna-hliznitsova-U5m-nwd9gDY-unsplash.jpg"
+// import logo from "../images/kateryna-hliznitsova-U5m-nwd9gDY-unsplash.jpg"
 import { Link } from "react-router-dom"
 import { useAppSelector } from "../app/hooks"
 import { logout, selectIsAuthenticated } from "../features/auths/authSlice"
 import { useDispatch } from "react-redux"
 import { useState } from "react"
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const NavBar = () => {
   const [show, setShow] = useState(false);
@@ -24,7 +25,7 @@ const NavBar = () => {
   const showProc = () => setShow(!show)
 
   return (
-    <div>
+    <div className=" sticky top-0">
       <nav className="flex justify-between px-3 h-10  items-center py-4 rounded-sm bg-slate-600  mx-3 my-2">
         <div>
           <input
@@ -48,11 +49,12 @@ const NavBar = () => {
                       // @ts-ignore
                     user?.username}
                   </h5>
-                  <img
+                  <AccountCircleIcon />
+                  {/* <img
                     className="h-10 w-10 rounded-full object-contain cursor-pointer"
                     src={logo}
                     alt="logo"
-                  />
+                  /> */}
                 </div>
                 {show && (
                   <div className="absolute top-10 right-0 bg-white border border-gray-300 rounded-lg py-2 px-4 shadow-md">

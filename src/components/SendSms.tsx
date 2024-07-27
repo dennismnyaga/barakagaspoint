@@ -89,15 +89,18 @@ const SendSms: React.FC = () => {
   return (
     <div className=''>
       <ShortCuts />
-      <div className='mt-5 mx-3 grid grid-cols-2 gap-4'>
+      {/* <div className='mt-5 mx-3 grid grid-cols-2 gap-4'> */}
+      <div className='mt-5 mx-3 '>
       <form onSubmit={handleSubmit} className='  bg-slate-600 py-5 px-2 rounded-sm'>
         <div className=' flex justify-evenly'>
           <div>
             <label className='me-3 font-semibold font-serif text-sm'>Select Party to Send Sms:</label>
             <select name="party"
+            required
                 id="cars"
                 className="text-black outline-none rounded-sm"
                 onChange={(e) => setSelectedGroup(e.target.value)}>
+                  
               <option value=""></option>
               <option value="all">All Groups</option>
               <option value="wholesale">Whole Sale Customers</option>
@@ -109,6 +112,7 @@ const SendSms: React.FC = () => {
           <div>
             <label className='me-3 font-semibold font-serif text-sm'>Select Customers Location:</label>
             <select name="locations"
+            required
                 id="locations"
                 className="text-black outline-none rounded-sm"
                 onChange={(e) => {
@@ -138,13 +142,12 @@ const SendSms: React.FC = () => {
                 <CircularProgress className=" !text-white" />
               </Box>): (<>Send <SendIcon /></>)
                 }
-                
               </button>
         </div>
       </form>
-      <div>
+      {/* <div>
         <RightContent />
-      </div>
+      </div> */}
       </div>
       
     </div>

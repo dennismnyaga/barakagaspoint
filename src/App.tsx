@@ -14,6 +14,9 @@ import RetailSalesRecordPage from "./pages/RetailSalesRecordPage"
 import TeamSalesPage from "./pages/TeamSalesPage"
 import AssignProductPage from "./pages/AssignProductPage"
 import AddCustomerPage from "./pages/AddCustomerPage"
+import DebtorsPage from "./pages/DebtorsPage"
+import OverDueDebtorsPage from "./pages/OverDueDebtorsPage"
+import CreateTeamPage from "./pages/CreateTeamPage"
 
 function App() {
   return (
@@ -36,6 +39,9 @@ function App() {
           <Route path="/teamsales" element={<TeamSalesPage />} />
           <Route path="/assign" element={<AssignProductPage />} />
           <Route path="/add_customer" element={<AddCustomerPage />} />
+          <Route path="/debtors" element={<DebtorsPage />} />
+          <Route path="/overduedebtors" element={<OverDueDebtorsPage />} />
+          <Route path="/createteam" element={<CreateTeamPage />} />
         </Routes>
       </Router>
     </div>

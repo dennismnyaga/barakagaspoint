@@ -2,9 +2,9 @@
 import React from 'react'
 import LeftNav from '../components/LeftNav'
 import NavBar from '../components/NavBar'
-import SendSms from '../components/SendSms'
+import OverdueDebtors from '../components/OverdueDebtors'
 
-const SendSmsPage = () => {
+const OverDueDebtorsPage = () => {
   return (
     <div className='flex gap-1 bg-slate-900 text-white'>
             <div className=' w-1/6'>
@@ -13,7 +13,7 @@ const SendSmsPage = () => {
             <div className=' w-full'>
                 <NavBar  />
                 <div>
-                    <SendSms />
+                    <OverdueDebtors  />
                 </div>
             </div>
 
@@ -21,4 +21,6 @@ const SendSmsPage = () => {
   )
 }
 
-export default SendSmsPage
+export default OverDueDebtorsPage
+
+

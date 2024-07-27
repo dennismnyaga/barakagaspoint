@@ -1,10 +1,12 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react/jsx-no-undef */
+/* eslint-disable prettier/prettier */
 import React from 'react'
+import Debtors from '../components/Debtors'
 import LeftNav from '../components/LeftNav'
 import NavBar from '../components/NavBar'
-import SendSms from '../components/SendSms'
 
-const SendSmsPage = () => {
+const DebtorsPage = () => {
   return (
     <div className='flex gap-1 bg-slate-900 text-white'>
             <div className=' w-1/6'>
@@ -13,7 +15,7 @@ const SendSmsPage = () => {
             <div className=' w-full'>
                 <NavBar  />
                 <div>
-                    <SendSms />
+                    <Debtors  />
                 </div>
             </div>
 
@@ -21,4 +23,4 @@ const SendSmsPage = () => {
   )
 }
 
-export default SendSmsPage
+export default DebtorsPage

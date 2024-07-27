@@ -2,35 +2,37 @@
 import React from 'react'
 import LeftNav from '../components/LeftNav'
 import NavBar from '../components/NavBar'
-import AssignProducts from '../components/AssignProducts'
+import CreateTeam from '../components/CreateTeam'
 import Login from '../components/Login'
 import { selectIsAuthenticated } from '../features/auths/authSlice'
 import { useAppSelector } from '../app/hooks'
 
-const AssignProductPage = () => {
+const CreateTeamPage = () => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated)
   return (
-    <div>
-      {isAuthenticated ? (
-        <div className='flex gap-1 bg-slate-900 text-white'>
-          <div className=' w-1/6'>
+    
+
+<div>
+        {isAuthenticated ? (
+          <div className="flex gap-1 bg-slate-900 text-white h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-200">
+          <div className=" w-1/6">
             <LeftNav />
           </div>
-          <div className=' w-full'>
+          <div className=" w-full">
             <NavBar />
             <div>
-              <AssignProducts />
+              <CreateTeam />
             </div>
           </div>
-
         </div>
-      ) : (
-        <div >
-          <Login />
-        </div>
-      )}
-    </div>
+    
+        ) : (
+          <div >
+            <Login />
+          </div>
+        )}
+      </div>
   )
 }
 
-export default AssignProductPage
+export default CreateTeamPage

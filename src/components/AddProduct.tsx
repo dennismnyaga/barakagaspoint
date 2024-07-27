@@ -83,7 +83,7 @@ const AddProduct = () => {
                       <TableCell align='right'>{record.kg3.sold}</TableCell>
                       <TableCell align='right'>
                       <form>
-                        <input type='number' placeholder='Add stock' className=' outline-none shadow-md px-1 py-1' />
+                        <input type='number' placeholder='Add stock' className=' outline-none shadow-md px-1 py-1' required />
                         <button type='submit' className=' bg-blue-500 px-3 py-1 font-bold text-blue-950'>Add</button>
                       </form>
                       </TableCell>
@@ -95,7 +95,7 @@ const AddProduct = () => {
                       <TableCell align='right'>{record.kg12.sold}</TableCell>
                       <TableCell align='right'>
                       <form>
-                        <input type='number' placeholder='Add stock' className=' outline-none shadow-md px-1 py-1' />
+                        <input type='number' placeholder='Add stock' className=' outline-none shadow-md px-1 py-1' required />
                         <button type='submit' className=' bg-blue-500 px-3 py-1 font-bold text-blue-950'>Add</button>
                       </form>
                       </TableCell>
@@ -107,7 +107,7 @@ const AddProduct = () => {
                       <TableCell align='right'>{record.kg24.sold}</TableCell>
                       <TableCell align='right'>
                       <form>
-                        <input type='number' placeholder='Add stock' className=' outline-none shadow-md px-1 py-1' />
+                        <input type='number' placeholder='Add stock' className=' outline-none shadow-md px-1 py-1' required />
                         <button type='submit' className=' bg-blue-500 px-3 py-1 font-bold text-blue-950'>Add</button>
                       </form>
                       </TableCell>

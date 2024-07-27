@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable prettier/prettier */
 import axios from "axios"
 import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
@@ -56,6 +58,11 @@ const Register = () => {
     formData.append("phone", phone); // Add user's phone number here
     formData.append("gender", gender); // Add user's gender here
     formData.append("profile_image", selectedImage || "");
+    const fileInput = document.getElementById("profilePicture") as HTMLInputElement;
+    const file = fileInput.files?.[0];
+    // @ts-ignore
+    formData.append("profile_image", file);
+
     try {
       await axios.post(`${apiUrl}/register/`, formData,{ headers: {
         "Content-Type": "multipart/form-data",
@@ -108,6 +115,7 @@ const Register = () => {
           <form
             onSubmit={handleSubmit}
             className="p-3 flex justify-center flex-col" encType="multipart/form-data"
+            
           >
             <div className=" text-center flex justify-center ">
               <label htmlFor="profilePicture" className="cursor-pointer">
@@ -139,6 +147,7 @@ const Register = () => {
               <input required
                 type="file"
                 id="profilePicture"
+                accept="image/jpeg,image/png,image/gif"
                 className="hidden"
                 onChange={handleImageChange}
               />

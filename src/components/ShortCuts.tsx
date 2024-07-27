@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { fetchCustomers, selectAllCustomers } from "../features/customers/customerSlice"
 import { fetchDebtors, selectAllDebtors } from "../features/debtors/debtorsSlice"
 import { useEffect } from "react"
+import { Link } from "react-router-dom"
 
 const ShortCuts = () => {
   const customers = useAppSelector(selectAllCustomers)
@@ -78,15 +79,18 @@ const ShortCuts = () => {
           <HailIcon />
         </div>
       </div>
-      <div className="flex items-center bg-slate-600  shadow-md rounded-md justify-around py-4 cursor-pointer">
-        <div className=" flex flex-col items-center">
-          <h6>{debtors.length}</h6>
-          <p>Total Customers in Debt</p>
+      <Link to='/debtors'>
+        <div className="flex items-center bg-slate-600  shadow-md rounded-md justify-around py-4 cursor-pointer">
+          <div className=" flex flex-col items-center">
+            <h6>{debtors.length}</h6>
+            <p>Total Customers in Debt</p>
+          </div>
+          <div className=" bg-slate-400 p-2 rounded-full">
+            <HailIcon />
+          </div>
         </div>
-        <div className=" bg-slate-400 p-2 rounded-full">
-          <HailIcon />
-        </div>
-      </div>
+      </Link>
+      <Link to='/overduedebtors'>
       <div className="flex items-center bg-slate-600  shadow-md rounded-md justify-around py-4 cursor-pointer">
         <div className=" flex flex-col items-center">
           <h6>{overdueDebtors.length}</h6>
@@ -96,6 +100,8 @@ const ShortCuts = () => {
           <HailIcon />
         </div>
       </div>
+      </Link>
+      
     </div>
   )
 }

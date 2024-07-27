@@ -17,7 +17,7 @@ interface SalesTeam {
 interface SalesTeamState {
     salesTeam: SalesTeam[];
     status: "idle" | "loading" | "succeeded" | "failed";
-    error: string | null;
+    error: string | null | undefined;
 }
 
 interface FetchSalesTeamResponse {
@@ -39,6 +39,47 @@ export const fetchSalesTeam = createAsyncThunk<SalesTeam[], void, {}>(
   );
   
 
+  interface AddSalesTeamParams {
+    profile_image: File;
+    name: string;
+  }
+  
+      export const addSalesTeam = createAsyncThunk('addSalesTeam/addSalesTeam', async (params: AddSalesTeamParams) => {
+          const { profile_image, name } = params;
+        
+          const formData = new FormData();
+          formData.append('profile_image', profile_image);
+          formData.append('name', name);
+        
+          // const response = await axios.post(`${apiUrl}/createteam/`, formData);
+          const response = await axios.post(`${apiUrl}/createteam/`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+          return response.data;
+        });
+
+
+
+// export const addSalesTeam = createAsyncThunk(
+//   "addSalesTeam/addSalesTeam",
+//   async ({
+//     profile_image,
+//     name
+//   }: {
+//       profile_image: File,
+//       name: string
+//   }) => {
+//     const response = await axios.post(`${apiUrl}/createteam/`, {
+//       profile_image,
+//       name
+//     })
+//     return response.data
+//   },
+// )
+
+
 const salesTeamSlice = createSlice({
   name: "salesTeam",
   initialState,
@@ -55,7 +96,25 @@ const salesTeamSlice = createSlice({
       .addCase(fetchSalesTeam.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "Failed to fetch salesTeam";
-      });
+      })
+      .addCase(addSalesTeam.pending, (state, action) => {
+        state.status = "loading"
+      })
+      .addCase(addSalesTeam.fulfilled, (state, action) => {
+        state.status = "succeeded"
+        state.salesTeam.push(action.payload);
+        // state.stockProps = state.stockProps.map((stock) => {
+        //   if (stock.id === action.payload.id) {
+        //     return action.payload
+        //   } else {
+        //     return stock
+        //   }
+        // })
+      })
+      .addCase(addSalesTeam.rejected, (state, action) => {
+        state.status = "failed"
+        state.error = action.error.message
+      })
   },
 });
 

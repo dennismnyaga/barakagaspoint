@@ -1,101 +1,17 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect } from "react"
 import ShortCuts from "./ShortCuts"
-import pro from "../images/mini.jpg"
 import MakeSales from "./MakeSales"
 import { useAppDispatch, useAppSelector } from "../app/hooks"
-import {
-  fetchCustomers,
-} from "../features/customers/customerSlice"
+import { fetchCustomers } from "../features/customers/customerSlice"
 import { fetchDebtors } from "../features/debtors/debtorsSlice"
 import { fetchProducts } from "../features/product/productSlice"
 import { fetchSales } from "../features/sales/salesSlice"
 import { fetchSalesTeamManagement, getSalesTeamManagementStatus,  selectAllSalesTeamManagement } from "../features/salesTeam/salesTeamMabagementSlice"
 
-interface Cylinder {
-  id: number
-  name: string
-  category: string
-  quantity: number
-  buyingPrice: number
-  refillingPrice: number
-}
 
 // Sample data representing LPG gas cylinders from different companies
-const cylinders: Cylinder[] = [
-  {
-    id: 1,
-    name: "Company A",
-    category: "3kg",
-    quantity: 500,
-    buyingPrice: 100,
-    refillingPrice: 50,
-  },
-  {
-    id: 2,
-    name: "Company A",
-    category: "12kg",
-    quantity: 10,
-    buyingPrice: 300,
-    refillingPrice: 150,
-  },
-  {
-    id: 3,
-    name: "Company A",
-    category: "24kg",
-    quantity: 15,
-    buyingPrice: 600,
-    refillingPrice: 300,
-  },
-  {
-    id: 4,
-    name: "Company B",
-    category: "3kg",
-    quantity: 8,
-    buyingPrice: 120,
-    refillingPrice: 60,
-  },
-  {
-    id: 5,
-    name: "Company B",
-    category: "12kg",
-    quantity: 12,
-    buyingPrice: 350,
-    refillingPrice: 180,
-  },
-  {
-    id: 6,
-    name: "Company B",
-    category: "24kg",
-    quantity: 18,
-    buyingPrice: 700,
-    refillingPrice: 350,
-  },
-  {
-    id: 7,
-    name: "Company C",
-    category: "24kg",
-    quantity: 18,
-    buyingPrice: 700,
-    refillingPrice: 350,
-  },
-  {
-    id: 8,
-    name: "Company C",
-    category: "24kg",
-    quantity: 18,
-    buyingPrice: 700,
-    refillingPrice: 350,
-  },
-  {
-    id: 9,
-    name: "Company C",
-    category: "24kg",
-    quantity: 18,
-    buyingPrice: 700,
-    refillingPrice: 350,
-  },
-]
+
 
 const Products = () => {
   const allTeams = useAppSelector(selectAllSalesTeamManagement);

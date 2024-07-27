@@ -18,7 +18,7 @@ import {
 import Cookies from "cookies-js"
 import { assignCylinders, fetchSalesTeamManagement } from "../features/salesTeam/salesTeamMabagementSlice"
 import getApiUrl from "../getApiUrl"
-
+import RemoveIcon from '@mui/icons-material/Remove';
 
 
 const apiUrl = getApiUrl()
@@ -209,23 +209,23 @@ const MakeSales = ({ team}) => {
       <h3 className="font-extrabold text-2xl text-center bg-slate-600 font-serif underline">
         Sales Record
       </h3>
-      <div className="bg-slate-400 my-2 p-2 flex justify-around items-center">
+      <div className="bg-slate-400 my-2 p-2 flex justify-around ">
         <div>
-          <div className="flex items-center flex-col">
+          <div className="flex items-center flex-col top-0">
             <img
-              src={profile}
+              src={team.profile_image}
               className="w-20 h-20 rounded-lg object-fill mb-2"
               alt="Profile"
             />
             <h5 className="font-semibold">
               {team.name}
-              <span className="font-medium text-xs align-super bg-blue-400 px-2 rounded-xl">
+              {/* <span className="font-medium text-xs align-super bg-blue-400 px-2 rounded-xl">
                 wholesale
-              </span>
+              </span> */}
             </h5>
-            <h5>
+            {/* <h5>
               <LocalPhoneIcon /> +254 700200566
-            </h5>
+            </h5> */}
           </div>
           <div className=" text-black">
             <div className=" h-36 bg-blue-400 flex flex-col">
@@ -234,10 +234,11 @@ const MakeSales = ({ team}) => {
                   Employees
                 </h5>
                 {team.employees.map((employee: any, index: any) => (
-                  <p key={employee.id} className=" font-semibold text-white">
+                  <p key={employee.id} className=" font-semibold text-white flex justify-between items-center">
                     {index + 1}. {employee.first_name} {employee.last_name} +254{" "}
-                    {employee.phone}
+                    {employee.phone} <RemoveIcon className=" cursor-pointer border border-solid"/>
                   </p>
+                  
                 ))}
               </div>
             </div>
@@ -268,6 +269,12 @@ const MakeSales = ({ team}) => {
                   Assign
                 </button>
               </form>
+            </div>
+            <div>
+              <h3>Assign Emplooye</h3>
+              <div>
+                
+              </div>
             </div>
           </div>
         </div>

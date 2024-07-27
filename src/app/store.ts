@@ -8,6 +8,7 @@ import salesReducer from "../features/sales/salesSlice"
 import authReducer from "../features/auths/authSlice"
 import salesTeamReducer from "../features/salesTeam/salesTeamSlice"
 import salesTeamManagementReducer from "../features/salesTeam/salesTeamMabagementSlice"
+import employeesReducer from "../features/employees/employeesSlice"
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     auth: authReducer,
     salesTeam: salesTeamReducer,
     salesTeamManagement: salesTeamManagementReducer,
+    employees: employeesReducer,
   },
 })
 
