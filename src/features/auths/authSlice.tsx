@@ -112,6 +112,7 @@ export const { loginStart, loginFailure, loginSuccess, logoutSuccess } =
 export const login = (credentials: any) => async (dispatch: any) => {
   try {
     console.log('User credentials ', credentials)
+    dispatch(loginStart());
     const response = await axios.post(
       `${apiUrl}/token/`,
       credentials
@@ -128,13 +129,15 @@ export const login = (credentials: any) => async (dispatch: any) => {
       dispatch(refreshAccessToken());
     }, timer * 1000);
     dispatch({ type: "SET_INTERVAL_ID", payload: intervalId });
+    // new change=> return the response data here // return a promise so as it can be waited in the component
+    return response.data;
   } catch (error:any) {
     
     const message =
       error.response?.data?.detail || "An unknown error occurred.";
     dispatch(loginFailure(message));
     console.log("Caught an error ", message)
-    throw error;
+    throw error; // re-throw the error
   }
 };
 
@@ -164,6 +167,12 @@ export const refreshAccessToken = () => async (dispatch: any, getState: any) => 
 };
 
 export const selectIsAuthenticated = (state: { auth: AuthState }) => state.auth.accessToken !== null;
+
+// new change
+export const selectAuthLoading = (state: { auth: AuthState }) =>
+  state.auth.isLoading;
+
+export const selectAuthError = (state: { auth: AuthState }) => state.auth.error;
 
 export default authSlice.reducer;
 

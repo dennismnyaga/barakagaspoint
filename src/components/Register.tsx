@@ -8,6 +8,7 @@ import { useAppSelector } from "../app/hooks"
 import Alert from "@mui/material/Alert"
 import Stack from "@mui/material/Stack"
 import getApiUrl from "../getApiUrl"
+import { ClipLoader } from "react-spinners"
 
 const Register = () => {
   interface CustomError extends Error {
@@ -30,6 +31,9 @@ const Register = () => {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState("")
+  const [isLoading, setLoading] = useState(false)
+  const [successful, setSuccess] = useState(false)
+
   // const [image, setSelectedImage] = useState([]);
   // const [imageUrl, setImageUrl] = useState(null);
   // const [check, setCheck] = useState(false);
@@ -45,8 +49,12 @@ const Register = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
+    // set isloading to true
+    setLoading(true)
+
     if (password !== confirmPassword) {
       setError("Passwords do not match.")
+      setLoading(false)
       return
     }
 
@@ -76,11 +84,20 @@ const Register = () => {
       setPhone("")
       setGender("")
       setError("")
-      navigate("/login", {
-        state: { successMessage: "Registration successful. Please log in." },
-      })
+      setLoading(false)
+      setSuccess(true)
+      if (successful) {
+        setTimeout(() => {
+          navigate("/login", {
+            state: { successMessage: "Registration successful. Please log in." },
+          })
+        }, 2000)
+      }
     } catch (error: any) {
-      setError(error.response.data.user.username[0])
+      setLoading(false)
+      setSuccess(false)
+      //setError(error.response.data.user.username[0])
+      setError(error.message)
     }
   }
 
@@ -100,6 +117,9 @@ const Register = () => {
   //     setSelectedImage(selectedFile);
   //   }
   // };
+  if (error) {
+    console.log('This the error', error)
+  }
   
   return (
     <div className=" ">
@@ -112,6 +132,11 @@ const Register = () => {
                 </Alert>
               </Stack>
               )}
+          {successful && (
+            <div>
+              <p>Register successful! Redirecting...</p>
+            </div>
+            )}    
           <form
             onSubmit={handleSubmit}
             className="p-3 flex justify-center flex-col" encType="multipart/form-data"
@@ -127,24 +152,16 @@ const Register = () => {
                       className="w-20 h-20 rounded-full object-cover"
                     />
                   ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M12 5v14M5 12l2-2 2 2M15 12l2-2 2 2"></path>
-                    </svg>
+                    <img
+                      src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png"
+                      alt="Profile"
+                      className="w-20 h-20 rounded-full object-cover"
+                    />
                   )}
                 </div>
                 <div className=" text-white text-lg mt-2">Profile Picture</div>
               </label>
-              <input required
+              <input
                 type="file"
                 id="profilePicture"
                 accept="image/jpeg,image/png,image/gif"
@@ -202,7 +219,7 @@ const Register = () => {
                 className="outline-none p-1"
               />
             </div>
-            <button className=" bg-green-600 py-2 text-xl font-semibold text-white">Submit</button>
+            <button className=" bg-green-600 py-2 text-xl font-semibold text-white">{ isLoading? <ClipLoader size={15} color={"#ffffff"} /> : 'Submit' }</button>
           </form>
         </div>
       </div>

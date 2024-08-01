@@ -16,7 +16,6 @@ const HomePage = () => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated)
   return (
     <div>
-      {isDesktopOrLaptop ? (
         <>
           {isAuthenticated ? (
         <div className="flex gap-1 bg-slate-900 text-white h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-200">
@@ -36,13 +35,6 @@ const HomePage = () => {
         </div>
       )}
         </>
-      ) : (
-        <div className=" h-screen flex items-center justify-center">
-          <h2 className=" ">Not Compatible with Mobile, Use a laptop or desktop</h2>
-        </div>
-        
-      )}
-      
     </div>
 
   )
