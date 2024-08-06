@@ -1,15 +1,14 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
-import axios from "axios"
-import React, { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { useAppSelector } from "../app/hooks"
-import Alert from "@mui/material/Alert"
-import Stack from "@mui/material/Stack"
-import getApiUrl from "../getApiUrl"
-import { ClipLoader } from "react-spinners"
-
+import axios from "axios";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppSelector } from "../app/hooks";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPhone, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import getApiUrl from "../getApiUrl";
+import { ClipLoader } from "react-spinners";
 const Register = () => {
   interface CustomError extends Error {
     response?: {
@@ -122,108 +121,109 @@ const Register = () => {
   }
   
   return (
-    <div className=" ">
-      <div className="w-1/2 bg-slate-500 mx-auto rounded-md ">
-        <div>
-        {error && (
-                <Stack sx={{ width: "100%" }} spacing={2}>
-                <Alert severity="error">
-                  {error}
-                </Alert>
-              </Stack>
-              )}
-          {successful && (
-            <div>
-              <p>Register successful! Redirecting...</p>
-            </div>
-            )}    
-          <form
-            onSubmit={handleSubmit}
-            className="p-3 flex justify-center flex-col" encType="multipart/form-data"
-            
-          >
-            <div className=" text-center flex justify-center ">
-              <label htmlFor="profilePicture" className="cursor-pointer">
-                <div className="rounded-full bg-white w-20 h-20 items-center">
-                  {selectedImage ? (
-                    <img
-                      src={selectedImage}
-                      alt="Profile"
-                      className="w-20 h-20 rounded-full object-cover"
-                    />
-                  ) : (
-                    <img
-                      src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png"
-                      alt="Profile"
-                      className="w-20 h-20 rounded-full object-cover"
-                    />
-                  )}
+    <section className="d-flex justify-content-center align-items-center flex-column vh-100 ">
+      <div className='error-div'>
+              {error && (
+                <div className='popup'>
+                  <p>{error}</p>
                 </div>
-                <div className=" text-white text-lg mt-2">Profile Picture</div>
-              </label>
-              <input
-                type="file"
-                id="profilePicture"
-                accept="image/jpeg,image/png,image/gif"
-                className="hidden"
-                onChange={handleImageChange}
-              />
-            </div>
-            <div className="flex flex-col p-4 ">
-              <label className=" text-white text-lg">username</label>
-              <input required
-                onChange={handleUsernameInput}
-                type="text"
-                placeholder="john"
-                name="username"
-                className=" text-black p-1 outline-none rounded-sm"
-              />
-              <label className=" text-white text-lg">First name</label>
-              <input required
-                type="text" name="first_name" onChange={handleFirstnameInput}
-                className=" text-black p-1 outline-none rounded-sm"
-              />
-              <label className=" text-white text-lg">last name</label>
-              <input required
-                type="text" name="last_name" onChange={handleLastnameInput}
-                className=" text-black p-1 outline-none rounded-sm"
-              />
-              <label className=" text-white text-lg">phone number</label>
-              <input required
-                type="tel" name="phone" onChange={handlePhone}
-                pattern="[0-9]{10}"
-                className=" text-black p-1 outline-none rounded-sm"
-              />
-              <label className=" text-white text-lg">Gender</label>
-              <div className="flex gap-2">
-                <input required type="radio" name="gender" value="MALE" onChange={handleGender} />
-                <label className=" text-white text-lg">Male</label>
-                <br />
-                <input required type="radio" name="gender" value="FEMALE" onChange={handleGender}  />
-                <label className=" text-white text-lg">Female</label>
-                <br></br>
-              </div>
-
-              <label className=" text-white text-lg">password*</label>
-              <input required
-                onChange={handlePwdInput}
-                type="password"
-                name="password"
-                className="outline-none p-1"
-              />
-              <label className=" text-white text-lg">confirm password*</label>
-              <input required
-                onChange={handleConfirmPwdInput}
-                type="password"
-                name="password"
-                className="outline-none p-1"
-              />
-            </div>
-            <button className=" bg-green-600 py-2 text-xl font-semibold text-white">{ isLoading? <ClipLoader size={15} color={"#ffffff"} /> : 'Submit' }</button>
-          </form>
-        </div>
+              )}
+              {successful && (
+                <div className='popup'>
+                  <p>Register successful! Redirecting...</p>
+                </div>
+              )}    
       </div>
-    </div>
+      <div className="card shadow-sm p-4 register-style">
+      <form onSubmit={handleSubmit} className=''>
+                <p className='head'>Register</p>
+                <label className=''>Email*</label>
+                <div className="input-group mb-3">
+                  <span className="input-group-text">
+                  <FontAwesomeIcon icon={faEnvelope} />
+                  </span>
+                  <input
+                  type='text'
+                  placeholder='example@gmail.com'
+                  name='username'
+                  className='input1 form-control'
+                  onChange={handleUsernameInput}
+                  required
+                />
+                </div>
+                <div className="input-group mb-3">
+                  <span className="input-group-text">
+                  <FontAwesomeIcon icon={faPhone} />
+                  </span>
+                  <input
+                  type='text'
+                  placeholder='Tell number'
+                  name='username'
+                  className='input1 form-control'
+                  onChange={handleUsernameInput}
+                  required
+                />
+                </div>
+                <label className=''>Password*</label>
+                <div className="input-group mb-3">
+                  <span className="input-group-text">
+                  <FontAwesomeIcon icon={faLock} />
+                  </span>
+                  <input
+                    type='password'
+                    placeholder='Type your password'
+                    name='password'
+                    className='input2 form-control'
+                    onChange={handlePwdInput}
+                    required
+                  />
+                </div>
+                <label className=''>Confirm Password*</label>
+                <div className="input-group mb-1">
+                  <span className="input-group-text">
+                  <FontAwesomeIcon icon={faLock} />
+                  </span>
+                  <input
+                    type='password'
+                    placeholder='Retype your password'
+                    name='password'
+                    className='input3 form-control'
+                    onChange={handlePwdInput}
+                    required
+                  />
+                </div>
+                <div className='form-check-inline'>
+                <p className="terms-text">
+                  <input
+                    type="checkbox"
+                    name="terms"
+                    className="form-check-input"
+                    required
+                  /> By signing up to create an account, I accept the company's <Link className='Terms' to=''>
+                      Terms of Use
+                    </Link> and <Link className='Terms' to=''>
+                      Privacy Policy
+                    </Link>
+                </p>
+                </div>
+                <div className=''>
+                  <button
+                    className=''
+                  >
+                    {isLoading ? <ClipLoader size={15} color={"#ffffff"} /> : 'Sign Up'}
+                  </button>
+                </div>
+                <div>
+                  <p className=''>
+                    Already have an account?{' '}
+                    <Link className='signup' to='/login'>
+                      Login
+                    </Link>
+                  </p>
+                </div>
+              </form>    
+      </div>
+    </section>
   )
 }
 

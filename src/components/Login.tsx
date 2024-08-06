@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { login, selectAuthError, selectAuthLoading, selectIsAuthenticated } from '../features/auths/authSlice';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { ClipLoader } from 'react-spinners';
 
 
@@ -68,56 +70,68 @@ const Login = () => {
       //}, [isAuthenticated, navigate]);
 
       return (
-        <section className='login-stuffs'>
-          <div>
-            {errMsg && (
-              <div className='popup'>
-                <p>Error! {errMsg}</p>
-              </div>
-            )}
-            {loginSuccess && (
-              <div className='popup'>
-                <p>Login successful! Redirecting...</p>
-              </div>
-            )}
-            <div className='form-container'>
-              <form onSubmit={handleSubmit} className='flex flex-col'>
-                <label className='text-white text-lg'>Username*</label>
-                <input
+        <section className='d-flex justify-content-center align-items-center flex-column vh-100 '>
+            <div className='error-div'>
+              {errMsg && (
+                <div className='popup'>
+                  <p>Error! {errMsg}</p>
+                </div>
+              )}
+            </div>
+            <div className="card shadow-sm p-4 more-style">
+              <form onSubmit={handleSubmit} className=''>
+                <p className='head'>Login</p>
+                <label className=''>Email/Phone Number *</label>
+                <div className="input-group mb-3">
+                  <span className="input-group-text">
+                  <FontAwesomeIcon icon={faUser} />
+                  </span>
+                  <input
                   type='text'
                   placeholder='john'
                   name='username'
-                  className='outline-none p-1'
+                  className='input1 form-control'
                   onChange={handleUsernameInput}
                   required
                 />
-                <label className='text-white text-lg'>Password*</label>
-                <input
-                  type='password'
-                  name='password'
-                  className='outline-none p-1'
-                  onChange={handlePwdInput}
-                  required
-                />
-                <div className='text-center'>
+                </div>
+                <label className=''>Password *</label>
+                <div className="input-group mb-3">
+                  <span className="input-group-text">
+                  <FontAwesomeIcon icon={faLock} />
+                  </span>
+                  <input
+                    type='password'
+                    placeholder='password'
+                    name='password'
+                    className='input2 form-control'
+                    onChange={handlePwdInput}
+                    required
+                  />
+                </div>
+                <div className='d-flex justify-content-end mb-2'>
+                  <Link className='forgot-password' to='/forgot-password'>
+                    Forgot Password?
+                  </Link>
+                </div>
+                <div className=''>
                   <button
-                    className='text-lg font-bold text-white bg-cyan-300 my-3 px-2 py-1 rounded-md'
+                    className=''
                     disabled={!canSubmit || isLoading}
                   >
-                    {isLoading ? <ClipLoader size={15} color={"#ffffff"} /> : 'Login'}
+                    {isLoading ? <ClipLoader size={15} color={"#ffffff"} /> : 'LOGIN'}
                   </button>
                 </div>
                 <div>
-                  <p className='font-semibold text-center'>
+                  <p className=''>
                     Don't have an account?{' '}
-                    <Link className='text-blue-500' to='/register'>
-                      Register
+                    <Link className='signup' to='/register'>
+                      SignUp
                     </Link>
                   </p>
                 </div>
               </form>
             </div>
-          </div>
         </section>
       );
 }
