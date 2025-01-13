@@ -3,8 +3,8 @@ import Badge from "@mui/material/Badge"
 import MailIcon from "@mui/icons-material/Mail"
 // import logo from "../images/kateryna-hliznitsova-U5m-nwd9gDY-unsplash.jpg"
 import { Link } from "react-router-dom"
-import { useAppSelector } from "../app/hooks"
-import { logout, selectIsAuthenticated } from "../features/auths/authSlice"
+import { useAppSelector } from "../../app/hooks"
+import { logout, selectIsAuthenticated } from "../../features/auths/authSlice"
 import { useDispatch } from "react-redux"
 import { useState } from "react"
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -47,7 +47,7 @@ const NavBar = () => {
                     
                     @{
                       // @ts-ignore
-                    user?.username}
+                    user?.email}
                   </h5>
                   <AccountCircleIcon />
                   {/* <img

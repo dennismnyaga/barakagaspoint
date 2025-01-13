@@ -10,6 +10,7 @@ interface User {
     first_name:  string;
     last_name:  string;
     phone_number: number;
+    role: string; 
   }
   
   interface AuthState {
@@ -111,17 +112,24 @@ export const { loginStart, loginFailure, loginSuccess, logoutSuccess } =
 
 export const login = (credentials: any) => async (dispatch: any) => {
   try {
-    console.log('User credentials ', credentials)
     dispatch(loginStart());
     const response = await axios.post(
-      `${apiUrl}/token/`,
+      `${apiUrl}/users/token/`,
       credentials
     );
-    console.log('User credentials ', credentials)
     const accessToken = response.data.access;
     const refreshToken = response.data.refresh;
-    const decodedToken = jwt_decode(accessToken);
-    const user = decodedToken;
+    const decodedToken: any = jwt_decode(accessToken);
+    // const user = decodedToken;
+    
+    const user: User = {
+      email: decodedToken.email,
+      first_name: decodedToken.first_name,
+      last_name: decodedToken.last_name,
+      phone_number: decodedToken.phone_number,
+      role: decodedToken.role, // Extract role
+    
+    };
     dispatch(loginSuccess({ user, accessToken, refreshToken }));
 
     const timer = 240;
@@ -136,7 +144,6 @@ export const login = (credentials: any) => async (dispatch: any) => {
     const message =
       error.response?.data?.detail || "An unknown error occurred.";
     dispatch(loginFailure(message));
-    console.log("Caught an error ", message)
     throw error; // re-throw the error
   }
 };
@@ -151,7 +158,7 @@ export const refreshAccessToken = () => async (dispatch: any, getState: any) => 
     const newrefreshToken = cookies.get("refreshToken");
 
     const response = await axios.post(
-      `${apiUrl}/token/refresh/`,
+      `${apiUrl}/users/token/refresh/`,
       { refresh: newrefreshToken }
     );
     const accessToken = response.data.access;
@@ -165,6 +172,10 @@ export const refreshAccessToken = () => async (dispatch: any, getState: any) => 
     dispatch(logout());
   }
 };
+
+
+export const selectUserRole = (state: { auth: AuthState }) =>
+  state.auth.user?.role || "guest"; 
 
 export const selectIsAuthenticated = (state: { auth: AuthState }) => state.auth.accessToken !== null;
 

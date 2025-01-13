@@ -8,11 +8,63 @@ const SALESTeamManagement_URLS = `${apiUrl}/sales-team-management/`;
 
 
 interface SalesTeamManagement {
-  id: number;
+  id: string;
   name: string;
-  product: number;
-  timestamp: string;
+  employees: [
+      {
+          id: string;
+          user: {
+              email: string;
+              phone_number: string;
+          };
+          first_name: string
+          last_name: string;
+          id_number: string;
+          phone: string;
+          alternative_phone: string; 
+          gender: string;
+          profile_image: string;
+          front_id: string;
+          back_id: string;
+          verified: boolean;
+          defaulted: boolean;
+          sales_team: []
+      }
+  ]
+  assigned_cylinders: [
+      {
+          id: string;
+          cylinder: {
+              id: string;
+              gas_type: {
+                  id: string;
+                  name: string;
+                  date_added: string;
+              };
+              weight: {
+                  id: string;
+                  weight: number
+              };
+              wholesale_selling_price: number;
+              wholesale_refil_price: number;
+              retail_selling_price: number;
+              retail_refil_price: number;
+          };
+          assigned_quantity: number;
+          filled: number;
+          empties: number;
+          complete_sale: number;
+          refill_sale: number;
+          date_assigned: string;
+          creator: string;
+          sales_team: string;
+      }
+      
+        
+  ]
+  profile_image: string;
 }
+
 
 interface SalesTeamManagementState {
     salesTeamManagement: SalesTeamManagement[];

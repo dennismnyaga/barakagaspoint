@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable prettier/prettier */
@@ -99,6 +100,8 @@ const assignedCylindersForUserSalesTeam = allAssignedProducts.filter((assignedCy
     }
     return 0
   }
+
+  
   useEffect(() => {
     const calculatedDebt = calculateTotalAmount() - deposit
     // @ts-ignore
@@ -169,6 +172,8 @@ const assignedCylindersForUserSalesTeam = allAssignedProducts.filter((assignedCy
       setIsSubmitting(false)
     }
   }
+
+
   const renderDepositAndTotalDebt = () => {
     if (!fullyPaid) {
       return (

@@ -8,7 +8,7 @@ const SALESTeam_URLS = `${apiUrl}/getsalesteam/`;
 
 
 interface SalesTeam {
-  id: number;
+  id: string;
   name: number;
   product: number;
   timestamp: string;
@@ -20,9 +20,6 @@ interface SalesTeamState {
     error: string | null | undefined;
 }
 
-interface FetchSalesTeamResponse {
-  data: SalesTeam[];
-}
 
 const initialState: SalesTeamState = {
     salesTeam: [],
@@ -44,14 +41,13 @@ export const fetchSalesTeam = createAsyncThunk<SalesTeam[], void, {}>(
     name: string;
   }
   
-      export const addSalesTeam = createAsyncThunk('addSalesTeam/addSalesTeam', async (params: AddSalesTeamParams) => {
+  export const addSalesTeam = createAsyncThunk('addSalesTeam/addSalesTeam', async (params: AddSalesTeamParams) => {
           const { profile_image, name } = params;
         
           const formData = new FormData();
           formData.append('profile_image', profile_image);
           formData.append('name', name);
         
-          // const response = await axios.post(`${apiUrl}/createteam/`, formData);
           const response = await axios.post(`${apiUrl}/createteam/`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
@@ -62,22 +58,17 @@ export const fetchSalesTeam = createAsyncThunk<SalesTeam[], void, {}>(
 
 
 
-// export const addSalesTeam = createAsyncThunk(
-//   "addSalesTeam/addSalesTeam",
-//   async ({
-//     profile_image,
-//     name
-//   }: {
-//       profile_image: File,
-//       name: string
-//   }) => {
-//     const response = await axios.post(`${apiUrl}/createteam/`, {
-//       profile_image,
-//       name
-//     })
-//     return response.data
-//   },
-// )
+export const changeSalesTeamMember = createAsyncThunk(
+  "changeSalesTeamMember/salesTeam",
+  async ({userId, teamsId}:{userId: string; teamsId: string}) => {
+    const formData = new FormData();
+    formData.append('employeeId', userId)
+    formData.append('teamId', teamsId)
+    console.log('submited data ', userId)
+    const response = await axios.post(`${apiUrl}/users/transfer/`, formData)
+    return response.data
+  },
+)
 
 
 const salesTeamSlice = createSlice({
@@ -96,6 +87,17 @@ const salesTeamSlice = createSlice({
       .addCase(fetchSalesTeam.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "Failed to fetch salesTeam";
+      })
+      .addCase(changeSalesTeamMember.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(changeSalesTeamMember.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        // state.salesTeam = action.payload;
+      })
+      .addCase(changeSalesTeamMember.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "Failed to change salesTeam";
       })
       .addCase(addSalesTeam.pending, (state, action) => {
         state.status = "loading"

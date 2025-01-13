@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
 import Profile from '../components/Profile'
-import NavBar from '../components/NavBar'
-import LeftNav from '../components/LeftNav'
+import NavBar from '../components/ui/NavBar'
+import LeftNav from '../components/ui/LeftNav'
 
 const ProfilePage = () => {
   return (

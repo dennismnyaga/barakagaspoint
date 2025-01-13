@@ -7,8 +7,15 @@ import assignedProductsReducer from "../features/product/assignedProductsSlice"
 import salesReducer from "../features/sales/salesSlice"
 import authReducer from "../features/auths/authSlice"
 import salesTeamReducer from "../features/salesTeam/salesTeamSlice"
-import salesTeamManagementReducer from "../features/salesTeam/salesTeamMabagementSlice"
+import salesTeamManagementReducer from "../features/salesTeam/salesTeamManagementSlice"
 import employeesReducer from "../features/employees/employeesSlice"
+import businessReducer from "../features/business/businnesSlice"
+import storeReducer from "../features/store/storeSlice";
+import otherProductsReducer from "../features/store/otherProductsSlice";
+import assignsReducer from "../features/assigns/assignsSlice";
+import myProfileReducer from "../features/employees/myProfileSlice";
+import salesTeamDataReducer from "../features/salesTeam/salesTeamDataSlice";
+import assignedOtherProductsReducer from "../features/product/assignedOtherProductsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +29,14 @@ export const store = configureStore({
     salesTeam: salesTeamReducer,
     salesTeamManagement: salesTeamManagementReducer,
     employees: employeesReducer,
+    business: businessReducer,
+    store: storeReducer,
+    otherProducts: otherProductsReducer,
+    assigns: assignsReducer,
+    myProfile: myProfileReducer,
+    salesTeamData: salesTeamDataReducer,
+    assignedOtherProducts: assignedOtherProductsReducer,
+
   },
 })
 

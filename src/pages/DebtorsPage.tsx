@@ -3,8 +3,8 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
 import Debtors from '../components/Debtors'
-import LeftNav from '../components/LeftNav'
-import NavBar from '../components/NavBar'
+import LeftNav from '../components/ui/LeftNav'
+import NavBar from '../components/ui/NavBar'
 
 const DebtorsPage = () => {
   return (

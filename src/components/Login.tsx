@@ -1,139 +1,137 @@
-/* eslint-disable prettier/prettier */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { login, selectAuthError, selectAuthLoading, selectIsAuthenticated } from '../features/auths/authSlice';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { ClipLoader } from 'react-spinners';
-
+import PersonIcon from '@mui/icons-material/Person';
+import LockIcon from '@mui/icons-material/Lock';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import Alert from '@mui/material/Alert';
+import { useAppSelector } from '../app/hooks';
 
 const Login = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-  
-    const [check, setCheck] = useState(false)
-  
-  
-    const [errMsg, setErrMsg] = useState("");
-    const [loginSuccess, setLoginSuccess] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errMsg, setErrMsg] = useState("");
 
-    const navigate = useNavigate();
-    const location = useLocation();
+  const [passVisibility, setPasswordVisibility] = useState(false);
   
-    const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    
-    const error = useSelector(selectAuthError);
-    const isLoading = useSelector(selectAuthLoading);
-    const isAuthenticated = useSelector(selectIsAuthenticated);
-  
-    const handleUsernameInput = (e:any) => setUsername(e.target.value);
-    const handlePwdInput = (e:any) => setPassword(e.target.value);
+  const error = useAppSelector(selectAuthError);
+  const isLoading = useAppSelector(selectAuthLoading);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
 
-    const canSubmit = [username, password].every(Boolean)
+  const handleUsernameInput = (e: any) => setEmail(e.target.value);
+  const handlePwdInput = (e: any) => setPassword(e.target.value);
+
+  const canSubmit = [email, password].every(Boolean);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // @ts-ignore
+    dispatch(login({ email, password }));
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
 
 
-    interface CustomError extends Error {
-        response?: {
-          data?: {
-            detail?: string;
-          };
-          status?: number;
-        };
-        originalStatus?: number;
-      }
+  useEffect(() => {
+    if (error) {
+      setErrMsg(error);
+    }
+  }, [error]);
+
+
+
+  const handlePasswordVisisbility = () => {
+    setPasswordVisibility(!passVisibility)
+  }
+  return (
+    <section className='h-screen bg-gradient-to-br from-pale-green to-whitish flex items-center justify-center'>
       
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-          // @ts-ignore
-          dispatch(login({ username, password }))
-      };
-
-      // check on  error
-      useEffect(() => {
-        if(error) {
-          console.log('This the error', error);
-          setErrMsg(error);
-        }
-      }, [error]);
-
-      // update loginstatus // this has no effect because homepage runs automatically
-      //useEffect(() => {
-        //if(isAuthenticated) {
-          //setLoginSuccess(true);
-          //setTimeout(() => {
-            //setLoginSuccess(false);
-           // navigate('/')
-         // }, 3000);
-       // }
-      //}, [isAuthenticated, navigate]);
-
-      return (
-        <section className='d-flex justify-content-center align-items-center flex-column vh-100 '>
-            <div className='error-div'>
-              {errMsg && (
-                <div className='popup'>
-                  <p>Error! {errMsg}</p>
-                </div>
-              )}
+      <div className=" bg-gray-400 p-8 rounded-lg shadow-lg w-full max-w-md">
+        <form onSubmit={handleSubmit} className='space-y-4'>
+          <p className='text-2xl font-bold text-center mb-6'>Login</p>
+          <div>{errMsg && (
+        <div className=''>
+          <Alert severity="error">{errMsg}</Alert>
+          {/* <p>Error! {errMsg}</p> */}
+        </div>
+      )}</div>
+          
+          <div>
+            <label className='block mb-2'>Email/Phone Number *</label>
+            <div className="input-group mb-3 flex items-center bg-white rounded">
+              <span className="input-group-text p-2 bg-gray-100 rounded-l">
+                <PersonIcon className='' />
+              </span>
+              <input
+                type='text'
+                placeholder='john@gmail.com or +2540000000'
+                name='email'
+                className='form-control p-2 flex-grow rounded-r outline-none'
+                onChange={handleUsernameInput}
+                required
+              />
             </div>
-            <div className="card shadow-sm p-4 more-style">
-              <form onSubmit={handleSubmit} className=''>
-                <p className='head'>Login</p>
-                <label className=''>Email/Phone Number *</label>
-                <div className="input-group mb-3">
-                  <span className="input-group-text">
-                  <FontAwesomeIcon icon={faUser} />
+          </div>
+
+          <div>
+            <label className='block mb-2'>Password *</label>
+            <div className="input-group mb-3 flex items-center bg-white rounded">
+              <span className="input-group-text p-2 bg-gray-100 rounded-l">
+                <LockIcon />
+              </span>
+              <input
+                 type={passVisibility ? 'text' : 'password'}
+                placeholder='password'
+                name='password'
+                className='form-control p-2 flex-grow rounded-r outline-none border-none'
+                onChange={handlePwdInput}
+                required
+              />
+              <span onClick={handlePasswordVisisbility} className=" !bg-white">
+                    {passVisibility ? <VisibilityIcon className=" !bg-white cursor-pointer pe-1" /> : <VisibilityOffIcon  className=" !bg-white cursor-pointer pe-1" /> }
                   </span>
-                  <input
-                  type='text'
-                  placeholder='john'
-                  name='username'
-                  className='input1 form-control'
-                  onChange={handleUsernameInput}
-                  required
-                />
-                </div>
-                <label className=''>Password *</label>
-                <div className="input-group mb-3">
-                  <span className="input-group-text">
-                  <FontAwesomeIcon icon={faLock} />
-                  </span>
-                  <input
-                    type='password'
-                    placeholder='password'
-                    name='password'
-                    className='input2 form-control'
-                    onChange={handlePwdInput}
-                    required
-                  />
-                </div>
-                <div className='d-flex justify-content-end mb-2'>
-                  <Link className='forgot-password' to='/forgot-password'>
-                    Forgot Password?
-                  </Link>
-                </div>
-                <div className=''>
-                  <button
-                    className=''
-                    disabled={!canSubmit || isLoading}
-                  >
-                    {isLoading ? <ClipLoader size={15} color={"#ffffff"} /> : 'LOGIN'}
-                  </button>
-                </div>
-                <div>
-                  <p className=''>
-                    Don't have an account?{' '}
-                    <Link className='signup' to='/register'>
-                      SignUp
-                    </Link>
-                  </p>
-                </div>
-              </form>
             </div>
-        </section>
-      );
+            
+          </div>
+
+          <div className='flex justify-end mb-4'>
+            <Link className=' underline text-sm' to='/forgot-password'>
+              Forgot Password?
+            </Link>
+          </div>
+
+          <div>
+            <button
+              className='w-full bg-gradient-to-r from-green-500 to-yellow-400  font-bold cursor-pointer text-white py-2 px-4 rounded hover:bg-blue-600 '
+              disabled={!canSubmit || isLoading}
+            >
+              {isLoading ? <ClipLoader size={15} color={"#ffffff"} /> : 'LOGIN'}
+            </button>
+          </div>
+
+          <div className='text-center mt-4'>
+            <p>
+              Don't have an account?{' '}
+              <Link className=' text-link-color font-bold' to='/register'>
+                SignUp
+              </Link>
+            </p>
+          </div>
+        </form>
+      </div>
+    </section>
+  );
 }
 
-export default Login
+
+export default Login;

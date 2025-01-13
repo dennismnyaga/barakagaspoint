@@ -1,7 +1,8 @@
+// @ts-nocheck
 /* eslint-disable prettier/prettier */
 import React from 'react'
-import LeftNav from '../components/LeftNav'
-import NavBar from '../components/NavBar'
+import LeftNav from '../components/ui/LeftNav'
+import NavBar from '../components/ui/NavBar'
 import SendSms from '../components/SendSms'
 
 const SendSmsPage = () => {
